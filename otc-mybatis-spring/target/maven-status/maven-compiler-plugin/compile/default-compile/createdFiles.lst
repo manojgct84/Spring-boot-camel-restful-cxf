@@ -1,0 +1,4 @@
+com\sivalabs\mybatisdemo\mappers\UserMapper.class
+com\sivalabs\mybatisdemo\service\UserService.class
+com\sivalabs\mybatisdemo\service\MyBatisUtil.class
+com\sivalabs\mybatisdemo\domain\User.class

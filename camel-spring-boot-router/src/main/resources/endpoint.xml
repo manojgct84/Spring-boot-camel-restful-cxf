@@ -1,0 +1,46 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    ">
+
+	<bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+
+	<cxf:rsServer id="rsServer" address="/customer" serviceClass="com.bac.rds.cmx.process.ExampleService" />
+
+  <!-- Defined the client endpoint to create the cxf-rs consumer -->
+  <!-- <cxf:rsClient id="rsClient" address="http://localhost:8090/camel/service/get" serviceClass="org.apache.camel.component.cxf.jaxrs.testbean.CustomerService">
+    <cxf:providers>
+       <ref bean="jsonProvider"/>
+    </cxf:providers>
+  </cxf:rsClient> -->
+
+
+	<bean id="abstractLoggingInterceptor" abstract="true">
+		<property name="prettyLogging" value="true" />
+	</bean>
+
+	<bean id="loggingInInterceptor" class="org.apache.cxf.interceptor.LoggingInInterceptor"
+		parent="abstractLoggingInterceptor" />
+	<bean id="loggingOutInterceptor" class="org.apache.cxf.interceptor.LoggingOutInterceptor"
+		parent="abstractLoggingInterceptor" />
+
+
+	<cxf:rsServer id="rsCountry" address="/"
+		serviceClass="com.bac.rds.cmx.process.CountryService">
+		<cxf:providers>
+			<ref bean="jsonProvider" />
+			<ref bean="responseWriter" />
+		</cxf:providers>
+		<cxf:inInterceptors>
+			<ref bean="loggingInInterceptor" />
+		</cxf:inInterceptors>
+		<cxf:outInterceptors>
+			<ref bean="loggingOutInterceptor" />
+		</cxf:outInterceptors>
+	</cxf:rsServer>
+</beans>

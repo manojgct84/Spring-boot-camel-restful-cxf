@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: camel-spring-boot-restful
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Dell
+Implementation-Vendor-Id: com.bac.rds.camel.spring.boot.cxf.restful
+Build-Jdk: 1.8.0_77
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
